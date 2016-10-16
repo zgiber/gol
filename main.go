@@ -88,7 +88,7 @@ func gameLoop() {
 		select {
 		case fn := <-events:
 			fn(c)
-		case <-time.After(20 * time.Millisecond):
+		case <-time.After(50 * time.Millisecond):
 			tick(c)
 		}
 	}
@@ -220,12 +220,15 @@ func (client *websocketClient) updateEvent() event {
 			points = append(points, p)
 		}
 
-		client.pointsOut <- points
+		select {
+		case client.pointsOut <- points:
+		case <-time.After(50 * time.Millisecond):
+		}
+
 	})
 }
 
 func (client *websocketClient) send() {
-	defer fmt.Println("send X")
 	for {
 		if !client.connected {
 			return
@@ -258,7 +261,7 @@ func (client *websocketClient) receive() {
 
 		select {
 		case client.pointsIn <- points:
-			fmt.Println("<")
+		case <-time.After(100 * time.Millisecond):
 		}
 
 	}
@@ -279,7 +282,7 @@ func handleClient(client *websocketClient) {
 		select {
 		case newCells := <-client.pointsIn:
 			events <- addCells(newCells)
-		case <-time.After(50 * time.Millisecond):
+		case <-time.After(100 * time.Millisecond):
 			events <- client.updateEvent()
 		}
 	}
