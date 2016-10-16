@@ -4,17 +4,17 @@ var newPoints = [];
 var drawTimeout;
 
 function constructImageData(points) {
-    var data = new Uint8ClampedArray(600 * 600 * 4);
+    var data = new Uint8ClampedArray(262144);
     var pointsLength = points.length;
 
     for (var i = 0; i < pointsLength; i++) {
         var point = points[i]
-        var position = (point.x + (600 * point.y)) * 4;
+        var position = (point.x + (256 * point.y)) * 4;
         data[position] = 255;
         data[position + 3] = 255;
     }
 
-    return new ImageData(data, 600, 600)
+    return new ImageData(data, 256, 256)
 }
 
 var socket = new WebSocket("ws://" + window.location.host + "/ws");

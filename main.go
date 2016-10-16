@@ -17,10 +17,10 @@ import (
 var (
 	seedSpread    = 100
 	seedCellCount = 100
-	canvasX       = 600 // set to -1 for infinite (limited by int64) point coordinates
-	canvasY       = 600 // set to -1 for infinite (limited by int64) point coordinates
+	canvasX       = 256 // set to -1 for infinite (limited by int64) point coordinates
+	canvasY       = 256 // set to -1 for infinite (limited by int64) point coordinates
 
-	events = make(chan event, 2048)
+	events = make(chan event, 256)
 
 	addr string
 )
