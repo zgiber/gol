@@ -11,3 +11,5 @@ see the same thing and can interact with it. Unfortunately it takes quite some b
 
 ## What next?
 I don't really have plans with this. Maybe I'll try to save bandwidth, or come up with a smarter sync.
+
+![Screenshot](https://raw.githubusercontent.com/zgiber/gol/master/static/screen.png)
